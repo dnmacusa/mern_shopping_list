@@ -5,11 +5,13 @@ const config = require("config");
 
 const app = express();
 
+const mongoURI = process.env.mongoURI || config.get("mongoURI");
+
 // Bodyparser Middleware
 app.use(express.json());
 
 // DB Config
-const db = config.get("mongoURI");
+const db = mongoURI;
 
 // Connect to Mongo
 mongoose

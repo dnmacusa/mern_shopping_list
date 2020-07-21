@@ -5,6 +5,8 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 
+const jwtSecretKey = process.env.jwtSecret || config.get("jwtSecret");
+
 // User Model
 const Item = require("../../models/User");
 const User = require("../../models/User");
@@ -30,7 +32,7 @@ router.post("/", (req, res) => {
 
       jwt.sign(
         { id: user.id },
-        config.get("jwtSecret"),
+        jwtSecretKey,
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
